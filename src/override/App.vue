@@ -1,19 +1,24 @@
 <template>
   <div>
-    <div id="container" class="container">
+    <div id="container" class="container" v-show="!editing">
+<!--      <el-main>-->
       <div id="tabs" class="tabs-container">
-        <div class="content">
-          <div id="tabcontent" data-tab="1" class="tabcontent">
-            <p class="tag">{{ tag }}</p>
-            <p class="idea">{{ idea }}</p>
-            <p class="author">{{ author }}</p>
-            <p class="intro">{{ intro }}</p>
-            <p class="curator">{{ curator }}</p>
-          </div>
-        </div>
+        <card-display v-bind:card="card" />
+      <!--        <div class="content">-->
+<!--          <div id="tabcontent" data-tab="1" class="tabcontent">-->
+<!--            <p class="tag">{{ tag }}</p>-->
+<!--            <p class="idea">{{ idea }}</p>-->
+<!--            <p class="author">{{ author }}</p>-->
+<!--            <p class="intro">{{ intro }}</p>-->
+<!--            <p class="curator">{{ curator }}</p>-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
+<!--      </el-main>-->
     </div>
+    <Dashboard v-show="editing"></Dashboard>
     <footer>
+      <el-button @click="enter"> 进入 </el-button>
       <p>制作：<a href="https://twitter.com/way2steve" target="_blank">Steve</a> & <a
           href="https://twitter.com/fm100" target="_blank">Bob</a></p>
       <p>支持：<a href="https://club.q24.io/">灵感买家俱乐部</a></p>
@@ -24,39 +29,60 @@
 <script>
 
 import axios from 'axios';
+import Dashboard from '@/components/Dashboard.vue'
+import Login from '@/components/Login.vue'
+import Register from '@/components/Register.vue'
+import CardDisplay from '@/components/CardDisplay.vue'
+
 
 export default {
   name: 'App',
+  components: { Dashboard, CardDisplay, Login, Register},
   data () {
     return {
-      tag: "",
-      idea: "",
-      author: "",
-      intro: "",
-      curator: ""
+      editing: false,
+      card: {
+        tag: "",
+        idea: "",
+        author: "",
+        intro: "",
+        curator: "",
+        note: ""
+      }
     }
   },
-  mounted() {
-    let darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
-    if (darkMode) {
-      document.querySelector('html').classList.add('darkmode')
-      // document.querySelector('#dark-mode-switch').checked = 'checked'
-    }
+  created() {
+    // let darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+    // if (darkMode) {
+    //   document.querySelector('html').classList.add('darkmode')
+    //   // document.querySelector('#dark-mode-switch').checked = 'checked'
+    // }
 
     axios.get(
         "https://q24.io/api/v1/idea",
         { 'headers': { 'Accept': 'application/json' } }
     ).then(res => {
       if (res.data.tag) {
-        this.tag = "🏷️ " + res.data.tag;
+        this.card.tag = res.data.tag;
+      } else {
+        this.card.tag = "";
       }
-      this.idea = res.data.idea;
-      this.author = res.data.author;
-      this.intro = res.data.intro;
-      this.curator = "本内容由 " + res.data.curator + " 提供";
+      this.card.idea = res.data.idea;
+      if (res.data.author) {
+        this.card.idea += "<br><br> —— " + res.data.author;
+      }
+
+      if (res.data.intro) {
+        this.card.idea += "，" + res.data.intro;
+      }
+      this.card.note = res.data.note;
+      this.card.curator = "本内容由 " + res.data.curator + " 提供";
     });
   },
   methods: {
+    enter() {
+      this.editing = !this.editing;
+    }
   }
 }
 </script>
