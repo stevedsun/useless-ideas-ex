@@ -134,7 +134,7 @@ export default {
     font-weight: 700;
     margin-bottom: 20px;
     height: 260px;
-    line-height: 1.3em;
+    line-height: 1.5em;
     text-align: left;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -147,7 +147,7 @@ export default {
     margin-bottom: 20px;
     margin-top: 30px;
     height: 250px;
-    line-height: 1.3em;
+    line-height: 1.5em;
     text-align: left;
     text-overflow: ellipsis;
     overflow: hidden;
