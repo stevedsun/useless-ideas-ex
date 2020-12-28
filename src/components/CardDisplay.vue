@@ -50,16 +50,16 @@ export default {
     }
     renderer.code = doNothing;
     renderer.blockquote = doNothing;
-    renderer.html = doNothing;
-    renderer.heading = doNothing;
+    // renderer.html = doNothing;
+    // renderer.heading = doNothing;
     renderer.hr = doNothing;
     renderer.list = doNothing;
     renderer.listitem = doNothing;
-    renderer.checkbox = doNothing;
+    // renderer.checkbox = doNothing;
     // renderer.paragraph = doNothing;
-    renderer.table = doNothing;
-    renderer.tablerow = doNothing;
-    renderer.tablecell = doNothing;
+    // renderer.table = doNothing;
+    // renderer.tablerow = doNothing;
+    // renderer.tablecell = doNothing;
 
     renderer.link = doNothing;
     renderer.image = doNothing;
@@ -130,7 +130,7 @@ export default {
 
   .idea {
     font-family: 'Noto Serif SC', 'Source Han Serif', serif;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     margin-bottom: 20px;
     height: 260px;

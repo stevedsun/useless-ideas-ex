@@ -32,19 +32,18 @@ export default {
     var doNothing = (text) => { 
       return text; 
     }
-    renderer.code = doNothing;
-    renderer.blockquote = doNothing;
+    // renderer.code = doNothing;
+    // renderer.blockquote = doNothing;
     renderer.html = doNothing;
     renderer.heading = doNothing;
-    renderer.hr = doNothing;
-    renderer.list = doNothing;
-    renderer.listitem = doNothing;
+    // renderer.hr = doNothing;
+    // renderer.list = doNothing;
+    // renderer.listitem = doNothing;
     renderer.checkbox = doNothing;
     // renderer.paragraph = doNothing;
     renderer.table = doNothing;
     renderer.tablerow = doNothing;
     renderer.tablecell = doNothing;
-
     renderer.link = doNothing;
     renderer.image = doNothing;
     marked.setOptions({ renderer })
@@ -97,6 +96,8 @@ export default {
   transform-style: preserve-3d;
   transition: transform 1s;
 
+
+
   .card {
     display: block;
     position: absolute;
@@ -141,7 +142,7 @@ export default {
 
   .idea {
     font-family: 'Noto Serif SC', 'Source Han Serif', serif;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     margin-bottom: 20px;
     height: 260px;

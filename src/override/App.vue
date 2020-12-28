@@ -101,6 +101,21 @@ export default {
   padding: 0;
 }
 
+
+blockquote {
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+
 body {
   background-color: #f4f4f4;
 }
