@@ -10,7 +10,7 @@
   <div class="card back">
     <div class="card-content">
       <div class="note" v-html="card.noteHtml"></div>
-<!--      <a class="url" :href="card.url" target="_blank"> 相关链接 > </a>-->
+      <a class="url" :href="card.url" target="_blank"> 相关链接 > </a>
     </div>
   </div>
 </div>
@@ -45,7 +45,7 @@ export default {
     renderer.tablerow = doNothing;
     renderer.tablecell = doNothing;
 
-    // renderer.link = doNothing;
+    renderer.link = doNothing;
     renderer.image = doNothing;
     marked.setOptions({ renderer })
   },

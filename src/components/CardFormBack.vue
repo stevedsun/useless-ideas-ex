@@ -8,10 +8,10 @@
       <el-input type="textarea" placeholder="背面可以记录相关的链接，字谜的谜底，单词的释义等等" :rows="15" v-model="card.note"
        maxlength="300" resize=none show-word-limit></el-input>
     </el-form-item>
-      <div class="tool-box">
-        <el-button @click="onSubmit" class='black-btn full-btn' type="info" round>保存</el-button>
-        <el-button @click="onSubmit" class='white-btn full-btn' type="info" round>删除</el-button>
-      </div>
+<!--      <div class="tool-box">-->
+<!--        <el-button @click="onSubmit" class='black-btn full-btn' type="info" round>保存</el-button>-->
+<!--        <el-button @click="onSubmit" class='white-btn full-btn' type="info" round>删除</el-button>-->
+<!--      </div>-->
   </el-form>
 </div>
 </template>

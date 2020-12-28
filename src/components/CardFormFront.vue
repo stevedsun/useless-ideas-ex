@@ -7,12 +7,12 @@
     <el-form-item label="正面文字">
       <el-input type="textarea" placeholder="一段文字，可以是一段摘录、一个笔记、一个灵感，甚至是一个单词……" :rows="15" v-model="card.idea" maxlength="200" resize=none show-word-limit></el-input>
     </el-form-item>
-    <el-form-item>
-      <div class="tool-box">
-        <el-button @click="onSubmit" class='black-btn full-btn' type="info" round>保存</el-button>
-        <el-button @click="onSubmit" class='white-btn full-btn' type="info" round>删除</el-button>
-      </div>
-    </el-form-item>
+<!--&lt;!&ndash;    <el-form-item>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      <div class="tool-box">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <el-button @click="onSubmit" class='black-btn full-btn' type="info" round>保存</el-button>&ndash;&gt;-->
+<!--&lt;!&ndash;        <el-button @click="onSubmit" class='white-btn full-btn' type="info" round>删除</el-button>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--    </el-form-item>-->
   </el-form>
 </div>
 </template>

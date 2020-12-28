@@ -61,7 +61,7 @@ export default {
     renderer.tablerow = doNothing;
     renderer.tablecell = doNothing;
 
-    // renderer.link = doNothing;
+    renderer.link = doNothing;
     renderer.image = doNothing;
     marked.setOptions({ renderer })
   },

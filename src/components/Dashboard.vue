@@ -12,7 +12,7 @@
           <el-tab-pane label="卡片背面" name="back">
             <card-form-back />
           </el-tab-pane>
-          <el-tab-pane label="样式" name="style"></el-tab-pane>
+<!--          <el-tab-pane label="样式" name="style"></el-tab-pane>-->
         </el-tabs>
       </el-aside>
       <el-main>
@@ -37,10 +37,10 @@
         <div class="list-container">
           <card-list v-bind:cards="cards" />
         </div>
-        <div class="tool-box card-tool">
-          <el-button class="white-btn full-btn" type="info" @click="createCard" round>新 建</el-button>
-          <el-button class="white-btn full-btn" type="info" @click="importNote" round>批量导入</el-button>
-        </div>
+<!--        <div class="tool-box card-tool">-->
+<!--          <el-button class="white-btn full-btn" type="info" @click="createCard" round>新 建</el-button>-->
+<!--          <el-button class="white-btn full-btn" type="info" @click="importNote" round>批量导入</el-button>-->
+<!--        </div>-->
       </el-aside>
     </el-container>
     <!-- <el-footer/> -->
@@ -209,6 +209,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
 .el-container {
   height: 70vh;
 
