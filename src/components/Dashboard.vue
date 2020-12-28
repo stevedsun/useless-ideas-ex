@@ -210,7 +210,7 @@ export default {
 
 <style lang="less" scoped>
 .el-container {
-  height: 80vh;
+  height: 70vh;
 
   .el-header {
     color: #bebebe;

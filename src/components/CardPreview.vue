@@ -147,6 +147,8 @@ export default {
     height: 260px;
     line-height: 1.3em;
     text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
     
   .note {
@@ -158,6 +160,8 @@ export default {
     height: 250px;
     line-height: 1.3em;
     text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   .author {

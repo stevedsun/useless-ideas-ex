@@ -18,7 +18,8 @@
     </div>
     <Dashboard v-show="editing"></Dashboard>
     <footer>
-      <el-button @click="enter"> 进入 </el-button>
+      <button @click="enter">
+      </button>
       <p>制作：<a href="https://twitter.com/way2steve" target="_blank">Steve</a> & <a
           href="https://twitter.com/fm100" target="_blank">Bob</a></p>
       <p>支持：<a href="https://club.q24.io/">灵感买家俱乐部</a></p>
@@ -30,14 +31,19 @@
 
 import axios from 'axios';
 import Dashboard from '@/components/Dashboard.vue'
-import Login from '@/components/Login.vue'
-import Register from '@/components/Register.vue'
+// import Login from '@/components/Login.vue'
+// import Register from '@/components/Register.vue'
 import CardDisplay from '@/components/CardDisplay.vue'
 
 
 export default {
   name: 'App',
-  components: { Dashboard, CardDisplay, Login, Register},
+  components: {
+    Dashboard,
+    CardDisplay,
+    // Login,
+    // Register
+  },
   data () {
     return {
       editing: false,
@@ -73,7 +79,7 @@ export default {
       }
 
       if (res.data.intro) {
-        this.card.idea += "，" + res.data.intro;
+        this.card.idea += "（" + res.data.intro + "）";
       }
       this.card.note = res.data.note;
       this.card.curator = "本内容由 " + res.data.curator + " 提供";
@@ -122,7 +128,7 @@ footer a {
 
 .container {
   display: flex;
-  height: 80vh;
+  height: 70vh;
   background-color: #f4f4f4;
   color: #a2a2a2;
   font-family: sans-serif;
@@ -131,6 +137,20 @@ footer a {
 .darkmode .container {
   background-color: #1A1B1F;
   color: #8a8a8a;
+}
+
+button {
+  border: 0;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 50px;
+  border-radius: 50%;
+  /*transition: background 0.1s, color 0.1s;*/
+  transition: all 100ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /*background: linear-gradient(145deg, #ffffff, #dcdcdc);*/
+  background: #f4f4f4f4;
+  /*box-shadow: 3px 3px 5px #bebebe, -3px -3px 5px #ffffff;*/
+  box-shadow: 0px -6px 10px rgba(255, 255, 255, 1), 0px 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .tabs-container {
@@ -212,8 +232,6 @@ footer a {
 .content .active {
   display: block;
 }
-
-
 
 .tabcontent p {
   margin-bottom: 12px;
