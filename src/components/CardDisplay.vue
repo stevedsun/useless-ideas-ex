@@ -4,15 +4,13 @@
     <div class="card-content">
       <div class="tag">{{card.tag}}</div>
       <div class="idea" v-html="ideaHtml"></div>
-<!--       <div class="author">{{card.author}}</div>-->
-<!--       <div class="intro">{{card.intro}}</div>-->
       <a class="curator" :href="card.curator_link" target="_blank">{{card.curator}}</a>
     </div>
   </div>
   <div class="card back">
     <div class="card-content">
       <div class="note" v-html="noteHtml"></div>
-<!--      <a class="url" :href="card.url" target="_blank"> 相关链接 > </a>-->
+      <a class="url" :href="card.url" target="_blank"> 相关链接 > </a>
     </div>
   </div>
 </div>
@@ -74,7 +72,21 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
+
+blockquote {
+  font-family: 'Noto Serif SC', 'Source Han Serif', serif;
+  font-weight: 700;
+  padding: 10px 10px 30px 10px;
+}
+
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  vertical-align: -0.4em;
+}
+
 .card-preview {
   display: flex;
   flex-wrap: wrap;
@@ -98,7 +110,6 @@ export default {
 
   .front {
     background-image: url("../assets/80lb-Smooth-White.jpg");
-    // background-color: #f4f4f4;
     .card-content {
       .card-content();
     }
@@ -106,8 +117,6 @@ export default {
 
   .back {
     transform: rotateY(180deg);
-    // background-color: #f4f4f4;
-    // background-color: #f5f7fa;
     background-image: url("../assets/100lb-Smooth-White.jpg");
     .card-content {
       .card-content();
@@ -116,24 +125,25 @@ export default {
 }
 
 .card-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: block;
   padding: 46px;
   color: #a2a2a2;
+  font-size: 18px;
+  font-weight: 400;
 
   .tag {
-    font-size: 12px;
+    display: block;
+    font-size: 0.7em;
+    height: 1em;
+    font-weight: normal;
     color: #3ECF8E;
     margin-bottom: 10px;
   }
 
   .idea {
-    font-family: 'Noto Serif SC', 'Source Han Serif', serif;
-    font-size: 18px;
-    font-weight: 700;
+    display: block;
     margin-bottom: 20px;
-    height: 260px;
+    height: 15em;
     line-height: 1.5em;
     text-align: left;
     text-overflow: ellipsis;
@@ -141,43 +151,26 @@ export default {
   }
     
   .note {
-    font-family: 'Noto Serif SC', 'Source Han Serif', serif;
-    font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 20px;
-    margin-top: 30px;
-    height: 250px;
+    display: block;
+    padding: 20px 0 20px 0;
+    height: 16em;
     line-height: 1.5em;
     text-align: left;
     text-overflow: ellipsis;
     overflow: hidden;
   }
 
-  .author {
-    font-size: 14px;
-    font-weight: 400;
-    text-align: right;
-    margin-bottom: 2px;
-  }
-
-  .intro {
-    font-size: 14px;
-    font-weight: 400;
-    text-align: right;
-    margin-bottom: 10px;
-  }
-
   .curator {
-    font-size: 12px;
-    font-weight: 400;
+    display: block;
+    font-size: 0.7em;
     color: #d4d4d4;
     text-align: right;
     text-decoration : none;
   }
 
   .url {
-    font-size: 14px;
-    font-weight: 400;
+    display: block;
+    font-size: 0.9em;
     text-align: center;
     color: #a2a2a2;
   }

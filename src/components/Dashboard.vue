@@ -1,49 +1,23 @@
 <template>
   <el-container>
-<!--    <el-header>-->
-<!--      <h1>Useless Ideas Card Maker</h1>-->
-<!--    </el-header>-->
-    <el-container class="middle-container">
-      <el-aside class="editor-aside">
-        <el-tabs v-model="cardSide" @tab-click="handleClick" style="padding: 5px 10px 5px 10px">
-          <el-tab-pane label="卡片正面" name="front">
-            <card-form-front />
-          </el-tab-pane>
-          <el-tab-pane label="卡片背面" name="back">
-            <card-form-back />
-          </el-tab-pane>
-<!--          <el-tab-pane label="样式" name="style"></el-tab-pane>-->
-        </el-tabs>
-      </el-aside>
-      <el-main>
-        <card-preview />
-        <!-- <import-dialog v-bind:dialogVisable="dialogVisible"/> -->
-        <el-dialog title="批量导入" :visible.sync="dialogVisible">
-          <div class="import-btn">
-            <el-button type="info" class="white-btn full-btn">从 CSV文件 导入</el-button>
-          </div>
-          <div class="import-btn">
-            <el-button type="info" class="white-btn full-btn">从 微信读书 导入</el-button>
-          </div>
-          <div class="import-btn">
-            <el-button type="info" class="white-btn full-btn">从 Kindle 导入</el-button>
-          </div>
-          <div slot="footer" class="dialog-footer">
-            <el-button type="info" class="white-btn" @click="dialogVisible = false">关 闭</el-button>
-          </div>
-        </el-dialog>
-      </el-main>
-      <el-aside class="list-aside">
-        <div class="list-container">
-          <card-list v-bind:cards="cards" />
-        </div>
-<!--        <div class="tool-box card-tool">-->
-<!--          <el-button class="white-btn full-btn" type="info" @click="createCard" round>新 建</el-button>-->
-<!--          <el-button class="white-btn full-btn" type="info" @click="importNote" round>批量导入</el-button>-->
-<!--        </div>-->
-      </el-aside>
-    </el-container>
-    <!-- <el-footer/> -->
+    <el-aside id="editor-aside">
+      <el-tabs v-model="cardSide" @tab-click="handleClick" style="padding: 5px 10px 5px 10px">
+        <el-tab-pane label="卡片正面" name="front">
+          <card-form-front />
+        </el-tab-pane>
+        <el-tab-pane label="卡片背面" name="back">
+          <card-form-back />
+        </el-tab-pane>
+      </el-tabs>
+    </el-aside>
+    <el-main>
+      <card-preview />
+    </el-main>
+    <el-aside id="list-aside">
+      <div class="list-container">
+        <card-list v-bind:cards="cards" />
+      </div>
+    </el-aside>
   </el-container>
 </template>
 
@@ -208,79 +182,36 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
+#editor-aside {
+  min-width: 20%;
+  padding: 12px;
+  background-color: #f4f4f4;
+  color: #333;
+  text-align: left;
+  box-shadow: 3px 3px 6px #bebebe, -3px -3px 6px #ffffff;
+  border-radius: 0 24px 24px 0;
+}
 
-.el-container {
-  height: 70vh;
+#list-aside {
+  min-width: 20%;
+  background-color: #f4f4f4;
+  color: #333;
+  text-align: left;
+  box-shadow: 3px 3px 6px #bebebe, -3px -3px 6px #ffffff;
+  border-radius: 24px 0 0 24px;
+  padding: 30px 15px 30px 15px;
 
-  .el-header {
-    color: #bebebe;
-    //background-color: black;
-    //border-radius: 24px;
-    text-align: center;
-    width: 700px;
-    margin: 20px auto;
-    height: 60px;
-    //box-shadow: 3px 3px 6px #bebebe, -3px -3px 6px #ffffff;
-  }
-
-  .el-footer {
-    background-color: #f4f4f4;
-    color: #333;
-    text-align: center;
-    height: 60px;
-  }
-
-  .middle-container {
-    margin-bottom: 10px;
-
-    .el-aside {
-      padding: 12px;
-      background-color: #f4f4f4;
-      color: #333;
-      text-align: left;
-      width: 20% !important;
-      max-height: 750px;
-      min-width: 300px;
-      box-shadow: 3px 3px 6px #bebebe, -3px -3px 6px #ffffff;
-    }
-
-    .editor-aside {
-      margin-top: 50px;
-      border-radius: 0 24px 24px 0;
-    }
-
-    .list-aside {
-      margin-top: 50px;
-      border-radius: 24px 0 0 24px;
-      padding: 30px 15px 30px 15px;
-
-      .list-container {
-        display: flex;
-        flex-direction: column;
-        max-height: 560px;
-        padding: 0 0 10px 0;
-      }
-
-      .card-tool {
-        padding: 0 10px 0px 10px;
-      }
-    }
-
-    .el-main {
-      display: flex;
-      display: -webkit-flex;
-      /* Safari */
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 50% !important;
-    }
-  }
-
-  .import-btn {
-    width: 100%;
-    margin-bottom: 20px;
+  .list-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    padding: 0 0 10px 0;
   }
 }
+
+.el-main {
+  margin: auto;
+}
+
 </style>
