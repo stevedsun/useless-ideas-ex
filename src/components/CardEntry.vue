@@ -1,7 +1,7 @@
 <template>
 <!-- <div class="card-entry" @click="select(value)" @mouseover="preview(value)"> -->
 <div class="card-entry" @click="select(value)">
-  <el-card class="box-card" v-bind:class="{highlight: card.id == value.id}">
+  <el-card class="box-card" v-bind:class="{highlight: card.id === value.id}">
     {{ value.idea }}
   </el-card>
 </div>
@@ -21,6 +21,9 @@ export default {
   methods: {
     select(value) {
       this.$store.commit("update", value);
+      if (this.$store.state.currCard.id !== value.id) {
+        this.$store.state.currCard = {};
+      }
     },
   }
 }

@@ -8,7 +8,7 @@
       <Dashboard v-show="editing"></Dashboard>
     </div>
     <footer>
-      <button @click="enter">
+      <button @click="edit" class="edit-button">
       </button>
       <p>制作：<a href="https://twitter.com/way2steve" target="_blank">Steve</a> & <a
           href="https://twitter.com/fm100" target="_blank">Bob</a></p>
@@ -72,8 +72,15 @@ export default {
     });
   },
   methods: {
-    enter() {
+    edit() {
       this.editing = !this.editing;
+      console.log("editing status: " + this.editing);
+      if (!this.editing) {
+        chrome.storage.local.set({"savedCards": this.$store.state.unsaved}, function() {
+          console.log('Value is set to ' + this.$store.state.unsaved);
+          this.$store.commit("refresh", []);
+        });
+      }
     }
   }
 }
@@ -119,15 +126,54 @@ footer a {
   margin: auto;
 }
 
-button {
-  border: 0;
-  width: 80px;
-  height: 80px;
-  margin: 1.5em;
+.edit-button {
+  cursor: pointer;
+  position: relative;
+  margin: 30px 0 30px 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 26px;
+  width: 76px;
+  height: 76px;
   border-radius: 50%;
-  transition: all 100ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  background: #f4f4f4f4;
-  box-shadow: 0 -6px 10px rgba(255, 255, 255, 1), 0px 4px 15px rgba(0, 0, 0, 0.15);
+  /*display: block;*/
+  transition: all 0.3s;
+  box-shadow:
+      /*9px 9px 9px rgba(0,0,0,0.06),*/
+      -9px -9px 9px rgba(255,255,255,0.6),
+      inset 5px 5px 5px rgba(0,0,0,0.07),
+      inset -5px -5px 5px rgba(255,255,255,0.7);
 }
 
+.edit-button::before {
+  content: '';
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  margin: -35px 0 0 -35px;
+  box-shadow:
+      inset 3px 3px 3px rgba(255,255,255,0.5),
+      inset -3px -3px 3px rgba(0,0,0,0.05);
+}
+
+.edit-button:hover::before {
+  box-shadow:
+      inset 3px 3px 3px rgba(255,255,255,0.35),
+      inset -3px -3px 3px rgba(0,0,0,0.035);
+}
+
+.edit-button:active::before {
+  box-shadow:
+      inset 3px 3px 3px rgba(0,0,0,0.05),
+      inset -3px -3px 3px rgba(255,255,255,0.5);
+}
+
+/*.edit-button svg {*/
+  /*position: relative;*/
+  /*left: 3px;*/
+/*}*/
 </style>

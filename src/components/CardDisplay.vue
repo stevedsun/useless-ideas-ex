@@ -147,7 +147,7 @@ blockquote:before {
     line-height: 1.5em;
     text-align: left;
     text-overflow: ellipsis;
-    overflow: hidden;
+    overflow: auto;
   }
     
   .note {
@@ -157,7 +157,7 @@ blockquote:before {
     line-height: 1.5em;
     text-align: left;
     text-overflow: ellipsis;
-    overflow: hidden;
+    overflow: auto;
   }
 
   .curator {

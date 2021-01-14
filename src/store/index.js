@@ -18,6 +18,7 @@ export default new Vuex.Store({
       id: 0,
       html: ""
     },
+    unsaved: [],
     userInfo: {
       name: "Steve Sun",
       homepage: "https://sund.site",
@@ -34,6 +35,12 @@ export default new Vuex.Store({
     },
     flip(state, side) {
       state.param.cardSide = side;
+    },
+    add(state, card) {
+      state.unsaved.push(card);
+    },
+    refresh(state, cards) {
+      state.unsaved = cards;
     }
   },
   actions: {
