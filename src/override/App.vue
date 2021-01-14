@@ -109,12 +109,19 @@ footer {
   font-weight: 300;
   line-height: 1.5;
   text-align: center;
-  color: #8a8a8a;
+  color: #d4d4d4;
 }
 
 footer a {
-  color: #8a8a8a;
+  color: #d4d4d4;
 }
+
+/*footer .edit-button {*/
+/*  visibility: hidden;*/
+/*}*/
+/*footer:hover .edit-button {*/
+/*  visibility: visible;*/
+/*}*/
 
 .container {
   display: flex;
@@ -130,7 +137,7 @@ footer a {
   cursor: pointer;
   position: relative;
   margin: 30px 0 30px 0;
-  background-color: transparent;
+  background: transparent center/40% no-repeat url("../assets/edit.png");
   border: none;
   outline: none;
   padding: 26px;
@@ -172,8 +179,4 @@ footer a {
       inset -3px -3px 3px rgba(255,255,255,0.5);
 }
 
-/*.edit-button svg {*/
-  /*position: relative;*/
-  /*left: 3px;*/
-/*}*/
 </style>
