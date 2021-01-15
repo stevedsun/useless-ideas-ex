@@ -1,7 +1,7 @@
 <template>
   <el-container>
-    <el-aside id="editor-aside">
-      <el-tabs v-model="cardSide" @tab-click="handleClick" style="padding: 5px 10px 5px 10px">
+    <el-aside id="editor-aside" v-show="showEditor">
+      <el-tabs v-model="sideName" @tab-click="handleClick" style="padding: 5px 10px 5px 10px">
         <el-tab-pane label="卡片正面" name="front">
           <card-form-front />
         </el-tab-pane>
@@ -11,13 +11,13 @@
       </el-tabs>
     </el-aside>
     <el-main>
-<!--      <button @click="createCard"/>-->
       <card-preview />
     </el-main>
     <el-aside id="list-aside">
       <div class="list-container">
         <card-list v-bind:cards="cards" />
       </div>
+      <div class="create-btn" @click="createCard" > 新建卡片 </div>
     </el-aside>
   </el-container>
 </template>
@@ -38,28 +38,27 @@ export default {
   },
   data() {
     return {
-      dialogVisible: false,
-      cards: [],
     };
   },
-  mounted() {
-    chrome.storage.local.get(['savedCards'], function(result) {
-      console.log('saved cards: ' + result.value);
-      if (result.value !== undefined) {
-        this.$store.commit("refresh", result.value);
-        this.cards = this.$store.state.unsaved;
-      }
-    });
-  },
   computed: {
-    cardSide: {
+    showEditor: {
       get() {
-        return this.$store.state.param.cardSide;
-      },
-      set(v) {
-        this.$store.commit("flip", v);
+        return this.$store.state.status === "edit" ||
+            this.$store.state.status === "create";
       },
     },
+    sideName: {
+      get() {
+        return this.$store.state.currCard.isFront ? "front" : "back";
+      },
+      set() {
+      },
+    },
+    cards: {
+      get() {
+        return this.$store.state.cardList;
+      }
+    }
   },
   methods: {
     handleClick(tab) {
@@ -76,14 +75,9 @@ export default {
         url: "",
         curator: this.$store.state.userInfo.name,
         curator_link: this.$store.state.userInfo.homepage,
+        created_at: Date.now()
       };
-      this.$store.commit("update", newCard);
-      this.$store.commit("add", newCard);
-      console.log(this.$store.state.currCard);
-    },
-    importNote() {
-      console.log("import but clicked");
-      this.dialogVisible = true;
+      this.$store.commit("toCreate", newCard);
     },
   },
 };
@@ -109,10 +103,19 @@ export default {
   border-radius: 24px 0 0 24px;
   padding: 30px 15px 30px 15px;
 
+  .create-btn {
+    background-color: #3ECF8E;
+    padding: 15px 15px 0 10px;
+    height: 10%;
+    margin-bottom: 10px;
+    border-radius: 24px;
+    font-size: 14px;
+  }
+
   .list-container {
     display: flex;
     flex-direction: column;
-    max-height: 100%;
+    height: 88%;
     padding: 0 0 10px 0;
   }
 }

@@ -5,43 +5,82 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    // init, create, edit, display
+    status: "display",
+    cachedCards: [],
     currCard: {
-      idea: "",
-      note: "",
-      tag: "",
-      author: "",
-      intro: "",
-      link: "",
-      curator: "",
-      curator_link: "",
-      collection: "",
-      id: 0,
-      html: ""
+      info: {},
+      isFront: true,
     },
-    unsaved: [],
     userInfo: {
       name: "Steve Sun",
       homepage: "https://sund.site",
       email: ""
     },
-    param: {
-      cardSide: "front"
-    }
+    cardList: null,
   },
   mutations: {
     update(state, card) {
       state.currCard = card;
-      state.param.cardSide = "front";
     },
-    flip(state, side) {
-      state.param.cardSide = side;
+
+    flip(state) {
+      state.currCard.isFront = !state.currCard.isFront;
     },
-    add(state, card) {
-      state.unsaved.push(card);
+
+    loadCachedCard(state) {
+      let cards = window.localStorage.getItem('cards');
+      if (cards) {
+        state.cachedCards = JSON.parse(cards);
+      }
     },
-    refresh(state, cards) {
-      state.unsaved = cards;
-    }
+
+    // 点击编辑按钮
+    toInit(state) {
+      let cards = window.localStorage.getItem('cards');
+      state.cardList = JSON.parse(cards);
+      if (!state.cardList) {
+        state.cardList = [];
+        window.localStorage.setItem("cards",JSON.stringify(state.cardList));
+      }
+      state.status = "init";
+    },
+
+    // 点击切换编辑模式按钮
+    toDisplay(state) {
+      window.localStorage.setItem("cards",JSON.stringify(state.cardList));
+      state.cardList = [];
+      state.currCard = {
+        info: {},
+        isFront: true,
+      }
+      state.status = "display";
+    },
+
+    // 点击创建按钮后
+    toCreate(state, newCard) {
+      if (state.status === "create") {
+        state.currCard = {
+          info: {},
+          isFront: true,
+        }
+      }
+      state.currCard.info = newCard;
+      state.cardList.push(state.currCard.info);
+      state.status = "create";
+    },
+
+    // 点击列表里的其他卡片
+    toEdit(state, card) {
+      if (state.status === "create") {
+        state.currCard = {
+          info: {},
+          isFront: true,
+        }
+      }
+      state.currCard.info = card;
+      state.status = "edit";
+    },
   },
   actions: {
   },

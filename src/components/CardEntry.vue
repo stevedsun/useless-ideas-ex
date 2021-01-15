@@ -1,7 +1,6 @@
 <template>
-<!-- <div class="card-entry" @click="select(value)" @mouseover="preview(value)"> -->
 <div class="card-entry" @click="select(value)">
-  <el-card class="box-card" v-bind:class="{highlight: card.id === value.id}">
+  <el-card class="box-card" v-bind:class="{highlight: value.created_at === card.created_at}">
     {{ value.idea }}
   </el-card>
 </div>
@@ -11,25 +10,27 @@
 export default {
   name: "CardEntry",
   props: ["value"],
+  data() {
+    return {
+    }
+  },
   computed: {
     card: {
       get() {
-        return this.$store.state.currCard;
+        return this.$store.state.currCard.info;
       },
     }
   },
   methods: {
     select(value) {
-      this.$store.commit("update", value);
-      if (this.$store.state.currCard.id !== value.id) {
-        this.$store.state.currCard = {};
-      }
+      this.$store.commit("toEdit", value);
     },
   }
 }
 </script>
 
 <style lang="less">
+
 .card-entry {
   padding: 0 15px 0 10px;
 	.highlight {
@@ -45,7 +46,6 @@ export default {
 		:hover {
 			background: #f4f4f4;
 		}
-
 
     .el-card__body {
 			padding: 15px;

@@ -2,10 +2,10 @@
   <div>
     <div class="head"></div>
     <div class="container">
-      <div class="card-container" v-show="!editing">
+      <div class="card-container" v-show="!isEditing">
         <card-display v-bind:card="card" />
       </div>
-      <Dashboard v-show="editing"></Dashboard>
+      <Dashboard v-show="isEditing"></Dashboard>
     </div>
     <footer>
       <button @click="edit" class="edit-button">
@@ -36,7 +36,7 @@ export default {
   },
   data () {
     return {
-      editing: false,
+      isEditing: false,
       card: {
         tag: "",
         idea: "",
@@ -47,41 +47,46 @@ export default {
       }
     }
   },
-  created() {
-    axios.get(
-        "https://q24.io/api/v1/idea",
-        { 'headers': { 'Accept': 'application/json' } }
-    ).then(res => {
-      if (res.data.tag) {
-        this.card.tag = res.data.tag;
-      } else {
-        this.card.tag = "";
-      }
-      // this.card.idea = "> " + res.data.idea;
-      this.card.idea = res.data.idea;
-      if (res.data.author) {
-        this.card.idea += "<br><br> —— " + res.data.author;
-      }
+  mounted() {
+    this.$store.commit("loadCachedCard");
+    let cards = this.$store.state.cachedCards;
 
-      if (res.data.intro) {
-        this.card.idea += "（" + res.data.intro + "）";
-      }
-      this.card.note = res.data.note;
-      this.card.url = res.data.url;
-      this.card.curator = "本内容由 " + res.data.curator + " 提供";
-    });
+    if (cards.length === 0) {
+      axios.get(
+          "https://q24.io/api/v1/idea",
+          { 'headers': { 'Accept': 'application/json' } }
+      ).then(res => cards.push(res.data));
+    }
+
+    let index = Math.floor((Math.random() * cards.length));
+    this.displayCard(cards[index]);
   },
   methods: {
     edit() {
-      this.editing = !this.editing;
-      console.log("editing status: " + this.editing);
-      if (!this.editing) {
-        chrome.storage.local.set({"savedCards": this.$store.state.unsaved}, function() {
-          console.log('Value is set to ' + this.$store.state.unsaved);
-          this.$store.commit("refresh", []);
-        });
+      this.isEditing = !this.isEditing;
+      if (this.isEditing) {
+        this.$store.commit("toInit");
+      } else {
+        this.$store.commit("toDisplay");
       }
+    },
+    displayCard(v) {
+      if (v.tag) {
+        this.card.tag = v.tag;
+      }
+      this.card.idea = v.idea;
+      if (v.author) {
+        this.card.idea += "<br><br> —— " + v.author;
+      }
+
+      if (v.intro) {
+        this.card.idea += "（" + v.intro + "）";
+      }
+      this.card.note = v.note;
+      this.card.url = v.url;
+      this.card.curator = "本内容由 " + v.curator + " 提供";
     }
+
   }
 }
 </script>
@@ -116,13 +121,6 @@ footer a {
   color: #d4d4d4;
 }
 
-/*footer .edit-button {*/
-/*  visibility: hidden;*/
-/*}*/
-/*footer:hover .edit-button {*/
-/*  visibility: visible;*/
-/*}*/
-
 .container {
   display: flex;
   height: 70vh;
@@ -133,11 +131,22 @@ footer a {
   margin: auto;
 }
 
+footer .edit-button {
+  opacity: 0.2;
+  transition: visibility 0.3s linear 0.3s, opacity 0.3s;
+  background: transparent center/40%;
+}
+
+footer:hover .edit-button {
+  opacity: 0.7;
+  transition: visibility 0.3s linear 0.3s, opacity 0.3s;
+  background: transparent center/40% no-repeat url("../assets/edit.png");
+}
+
 .edit-button {
   cursor: pointer;
   position: relative;
   margin: 30px 0 30px 0;
-  background: transparent center/40% no-repeat url("../assets/edit.png");
   border: none;
   outline: none;
   padding: 26px;

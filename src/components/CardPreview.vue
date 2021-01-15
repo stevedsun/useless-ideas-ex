@@ -51,33 +51,31 @@ export default {
   computed: {
     card: {
       get() {
-        let curr = this.$store.state.currCard;
-        curr.ideaHtml = marked(curr.idea)
-        curr.noteHtml = marked(curr.note)
+        let curr = this.$store.state.currCard.info;
+        if (curr.idea) {
+          curr.ideaHtml = marked(curr.idea)
+        }
+
+        if (curr.note) {
+          curr.noteHtml = marked(curr.note)
+        }
         return curr;
       }
     },
     display: {
       get() {
-        let card = this.$store.state.currCard;
-        return !!(card.tag || card.idea || card.author || card.intro || card.url || card.note || card.curator || card.curator_link);
+        return this.$store.state.currCard.info.collection !== undefined;
       }
     },
     flipped: {
       get() {
-        return this.$store.state.param.cardSide !== 'front';
+        return !this.$store.state.currCard.isFront;
       }
     }
   },
   methods: {
     flip() {
-      const cardSide = this.$store.state.param.cardSide;
-      if (cardSide === "front") {
-        this.$store.commit("flip", "back");
-      } else {
-        this.$store.commit("flip", "front");
-      }
-      this.flipped = !this.flipped;
+      this.$store.commit("flip" );
     },
 
   }

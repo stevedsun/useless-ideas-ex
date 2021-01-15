@@ -7,12 +7,6 @@
     <el-form-item label="正面文字">
       <el-input type="textarea" placeholder="一段文字，可以是一段摘录、一个笔记、一个灵感，甚至是一个单词……" :rows="15" v-model="card.idea" maxlength="200" resize=none show-word-limit></el-input>
     </el-form-item>
-<!--&lt;!&ndash;    <el-form-item>&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;      <div class="tool-box">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <el-button @click="onSubmit" class='black-btn full-btn' type="info" round>保存</el-button>&ndash;&gt;-->
-<!--&lt;!&ndash;        <el-button @click="onSubmit" class='white-btn full-btn' type="info" round>删除</el-button>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--    </el-form-item>-->
   </el-form>
 </div>
 </template>
@@ -27,7 +21,7 @@ export default {
   computed: {
     card: {
       get() {
-        return this.$store.state.currCard;
+        return this.$store.state.currCard.info;
       },
       set(v) {
         this.$store.commit("update", v);
@@ -35,10 +29,10 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
-      console.log('submit!');
-      // this.$store.commit("update", e.target.value);
-    }
+    // onSubmit() {
+    //   console.log('submit!');
+    //   // this.$store.commit("update", e.target.value);
+    // }
   }
 }
 </script>
@@ -66,14 +60,7 @@ export default {
   }
 }
 
-// .save-bar {
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-// }
-
 .el-button {
-  // width: 100%;
   background: black;
   color: white;
   align-items: center;

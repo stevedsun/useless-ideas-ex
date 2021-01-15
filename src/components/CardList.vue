@@ -1,5 +1,5 @@
 <template>
-<div class="card-list" v-infinite-scroll="load" style="overflow:auto">
+<div class="card-list" style="overflow:auto">
   <card-entry class="infinite-list-item" v-bind:value="card" v-for="(card, index) in cards" v-bind:key="index" />
 </div>
 </template>
@@ -11,9 +11,9 @@ export default {
   props: ["cards"],
   components: { CardEntry },
   methods: {
-    load() {
-      console.log("load items");
-    }
+    // load() {
+    //   console.log("load items");
+    // }
   }
 }
 </script>

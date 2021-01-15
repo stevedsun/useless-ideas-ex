@@ -1,8 +1,8 @@
 <template>
 <div class="card-form-back">
   <el-form ref="card-back-form" :model="card">
-    <el-form-item label="链接">
-      <el-input type="url" v-model="card.url" placeholder="卡片相关的链接地址" show-word-limit></el-input>
+    <el-form-item label="相关链接">
+      <el-input type="url" v-model="card.url" placeholder="https://" show-word-limit></el-input>
     </el-form-item>
     <el-form-item label="背面文字">
       <el-input type="textarea" placeholder="背面可以记录相关的链接，字谜的谜底，单词的释义等等" :rows="15" v-model="card.note"
@@ -29,7 +29,7 @@ export default {
   computed: {
     card: {
       get() {
-        return this.$store.state.currCard;
+        return this.$store.state.currCard.info;
       },
       set(v) {
         this.$store.commit("update", v);
@@ -37,9 +37,9 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
-      console.log('submit!');
-    }
+    // onSubmit() {
+    //   console.log('submit!');
+    // }
   }
 }
 </script>
