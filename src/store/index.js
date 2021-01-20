@@ -67,6 +67,7 @@ export default new Vuex.Store({
       }
       state.currCard.info = newCard;
       state.cardList.push(state.currCard.info);
+      window.localStorage.setItem("cards",JSON.stringify(state.cardList));
       state.status = "create";
     },
 

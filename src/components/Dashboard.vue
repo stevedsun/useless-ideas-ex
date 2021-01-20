@@ -9,6 +9,13 @@
           <card-form-back />
         </el-tab-pane>
       </el-tabs>
+      <div class="btn-bar">
+        <el-switch
+            v-model="isShared"
+            active-text="公开">
+        </el-switch>
+        <el-button type="danger" round>删除卡片</el-button>
+      </div>
     </el-aside>
     <el-main>
       <card-preview />
@@ -38,6 +45,7 @@ export default {
   },
   data() {
     return {
+      isShared: false,
     };
   },
   computed: {
@@ -92,6 +100,12 @@ export default {
   text-align: left;
   box-shadow: 3px 3px 6px #bebebe, -3px -3px 6px #ffffff;
   border-radius: 0 24px 24px 0;
+  .btn-bar .el-button {
+    margin: 20px 20px 0 20px;
+  }
+  .btn-bar .el-switch {
+    margin: 0 20px 0 20px;
+  }
 }
 
 #list-aside {
@@ -105,11 +119,18 @@ export default {
 
   .create-btn {
     background-color: #3ECF8E;
+    color: #fff;
     padding: 15px 15px 0 10px;
-    height: 10%;
-    margin-bottom: 10px;
+    height: 8%;
+    width: 80%;
+    margin: auto;
+    text-align: center;
     border-radius: 24px;
-    font-size: 14px;
+    font-size: 18px;
+    box-shadow: 3px 3px 6px #bebebe, -3px -3px 6px #ffffff;
+  }
+  .create-btn:hover {
+    box-shadow: none;
   }
 
   .list-container {
